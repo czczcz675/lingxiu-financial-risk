@@ -448,7 +448,7 @@ class AdvancedFinancialRiskMonitor:
             )
         )
         
-        st.plotly_chart(fig, width='stretch')
+        st.plotly_chart(fig, use_container_width=True)
 
     def display_advanced_alerts(self):
         """显示高级预警信息"""
@@ -515,23 +515,23 @@ class AdvancedFinancialRiskMonitor:
             height=400,
             font=dict(size=12)
         )
-        st.plotly_chart(fig, width='stretch')
+        st.plotly_chart(fig, use_container_width=True)
         
-# 添加风险评分表格
-st.markdown("#### 📋 机构风险评分详情")
-display_df = self.institution_risk[['机构名称', '所属板块', '风险评分', '风险等级', '风险变化']].copy()
+        # 添加风险评分表格
+        st.markdown("#### 📋 机构风险评分详情")
+        display_df = self.institution_risk[['机构名称', '所属板块', '风险评分', '风险等级', '风险变化']].copy()
 
-# 使用兼容的样式方法
-def color_risk_score(val):
-    if val >= 80:
-        return 'background-color: #4caf50; color: white; font-weight: bold;'
-    elif val >= 70:
-        return 'background-color: #ff9800; color: white; font-weight: bold;'
-    else:
-        return 'background-color: #f44336; color: white; font-weight: bold;'
+        # 使用兼容的样式方法
+        def color_risk_score(val):
+            if val >= 80:
+                return 'background-color: #4caf50; color: white; font-weight: bold;'
+            elif val >= 70:
+                return 'background-color: #ff9800; color: white; font-weight: bold;'
+            else:
+                return 'background-color: #f44336; color: white; font-weight: bold;'
 
-styled_df = display_df.style.map(color_risk_score, subset=['风险评分'])
-st.dataframe(styled_df, width='stretch')
+        styled_df = display_df.style.map(color_risk_score, subset=['风险评分'])
+        st.dataframe(styled_df, use_container_width=True)
 
     def display_advanced_ai_analysis(self):
         """显示高级AI分析结果"""
@@ -562,7 +562,7 @@ st.dataframe(styled_df, width='stretch')
                         'value': 90}}
             ))
             fig.update_layout(height=300)
-            st.plotly_chart(fig, width='stretch')
+            st.plotly_chart(fig, use_container_width=True)
             
         with col2:
             # 关键指标对比
@@ -628,7 +628,7 @@ st.dataframe(styled_df, width='stretch')
             height=500,
             font=dict(size=12)
         )
-        st.plotly_chart(fig, width='stretch')
+        st.plotly_chart(fig, use_container_width=True)
 
     def create_technical_dashboard(self):
         """创建技术架构展示页面"""
@@ -639,31 +639,28 @@ st.dataframe(styled_df, width='stretch')
         
         with col1:
             st.markdown("""
-            <div class="architecture-container">
-                <h4 style="color: #2c3e50; text-align: center; margin-bottom: 1.5rem;">系统架构图</h4>
-                <div style="text-align: center; padding: 2rem; background: white; border-radius: 10px; border: 2px dashed #667eea;">
-                    <h5 style="color: #667eea;">🔮 灵嗅系统架构图</h5>
-                    <p style="color: #666; margin-top: 1rem;">数据采集层 → 数据处理层 → AI分析层 → 应用服务层</p>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.5rem;">
-                        <div style="background: #e3f2fd; padding: 1rem; border-radius: 8px;">
-                            <strong>数据源</strong><br>API/爬虫/数据库
-                        </div>
-                        <div style="background: #e8f5e8; padding: 1rem; border-radius: 8px;">
-                            <strong>BERT模型</strong><br>实体识别
-                        </div>
-                        <div style="background: #fff3e0; padding: 1rem; border-radius: 8px;">
-                            <strong>BiLSTM</strong><br>序列分析
-                        </div>
-                        <div style="background: #fce4ec; padding: 1rem; border-radius: 8px;">
-                            <strong>CRF层</strong><br>标签优化
-                        </div>
+            <div style="text-align: center; padding: 2rem; background: white; border-radius: 10px; border: 2px dashed #667eea;">
+                <h5 style="color: #667eea;">🔮 灵嗅系统架构图</h5>
+                <p style="color: #666; margin-top: 1rem;">数据采集层 → 数据处理层 → AI分析层 → 应用服务层</p>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.5rem;">
+                    <div style="background: #e3f2fd; padding: 1rem; border-radius: 8px;">
+                        <strong>数据源</strong><br>API/爬虫/数据库
+                    </div>
+                    <div style="background: #e8f5e8; padding: 1rem; border-radius: 8px;">
+                        <strong>BERT模型</strong><br>实体识别
+                    </div>
+                    <div style="background: #fff3e0; padding: 1rem; border-radius: 8px;">
+                        <strong>BiLSTM</strong><br>序列分析
+                    </div>
+                    <div style="background: #fce4ec; padding: 1rem; border-radius: 8px;">
+                        <strong>CRF层</strong><br>标签优化
                     </div>
                 </div>
             </div>
             """, unsafe_allow_html=True)
             
         with col2:
-            st.markdown('<div class="sub-header">🔧 核心技术栈</div>', unsafe_allow_html=True)
+            st.markdown("#### 🔧 核心技术栈")
             
             tech_stack = {
                 "AI框架": ["TensorFlow 2.8", "PyTorch 1.12", "HuggingFace Transformers"],
@@ -674,8 +671,8 @@ st.dataframe(styled_df, width='stretch')
             
             for category, technologies in tech_stack.items():
                 st.markdown(f"""
-                <div class="tech-card">
-                    <h5 style="color: #667eea; margin-bottom: 1rem;">{category}</h5>
+                <div style="margin-bottom: 1.5rem;">
+                    <h5 style="color: #667eea; margin-bottom: 0.5rem;">{category}</h5>
                     <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
                         {''.join([f'<span style="background: #f0f2f6; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem;">{tech}</span>' for tech in technologies])}
                     </div>
@@ -703,7 +700,7 @@ st.dataframe(styled_df, width='stretch')
                 }
             ))
             fig.update_layout(height=250)
-            st.plotly_chart(fig, width='stretch')
+            st.plotly_chart(fig, use_container_width=True)
             
         with col2:
             fig = go.Figure(go.Indicator(
@@ -717,7 +714,7 @@ st.dataframe(styled_df, width='stretch')
                 }
             ))
             fig.update_layout(height=250)
-            st.plotly_chart(fig, width='stretch')
+            st.plotly_chart(fig, use_container_width=True)
             
         with col3:
             fig = go.Figure(go.Indicator(
@@ -731,7 +728,7 @@ st.dataframe(styled_df, width='stretch')
                 }
             ))
             fig.update_layout(height=250)
-            st.plotly_chart(fig, width='stretch')
+            st.plotly_chart(fig, use_container_width=True)
             
         with col4:
             fig = go.Figure(go.Indicator(
@@ -743,7 +740,7 @@ st.dataframe(styled_df, width='stretch')
                 number = {'suffix': "s"}
             ))
             fig.update_layout(height=250)
-            st.plotly_chart(fig, width='stretch')
+            st.plotly_chart(fig, use_container_width=True)
         
         # 技术优势展示
         st.markdown('<div class="sub-header">🚀 技术优势与创新</div>', unsafe_allow_html=True)
@@ -775,7 +772,7 @@ st.dataframe(styled_df, width='stretch')
         for i, advantage in enumerate(advantages):
             with cols[i % 2]:
                 st.markdown(f"""
-                <div class="tech-card">
+                <div style="background: white; padding: 1.5rem; border-radius: 10px; margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
                     <div style="display: flex; align-items: center; margin-bottom: 1rem;">
                         <span style="font-size: 2rem; margin-right: 1rem;">{advantage['icon']}</span>
                         <h5 style="color: #2c3e50; margin: 0;">{advantage['title']}</h5>
@@ -801,7 +798,7 @@ def main():
         page = st.selectbox(
             "选择页面",
             ["风险监测仪表盘", "技术架构展示", "预警管理中心", "数据分析报告", "系统设置"],
-            label_visibility="visible"
+            label_visibility="collapsed"
         )
         
         st.markdown("---")
@@ -836,11 +833,10 @@ def main():
         monitor.create_technical_dashboard()
         
     elif page == "预警管理中心":
-        # 优化标题样式 - 增大字体和对比度
-        st.markdown('<div class="main-header" style="font-size: 3rem !important; padding: 2rem !important;">⚠️ 智能预警管理中心</div>', unsafe_allow_html=True)
+        st.markdown('<div class="main-header">⚠️ 智能预警管理中心</div>', unsafe_allow_html=True)
         
-        # 预警统计概览 - 优化列宽比例和间距
-        col1, col2, col3, col4 = st.columns([1, 1, 1, 1], gap='large')
+        # 预警统计概览
+        col1, col2, col3, col4 = st.columns(4)
         
         # 计算风险数据
         high_risk_count = len(monitor.alerts_data[monitor.alerts_data['风险等级'] == '高'])
@@ -853,173 +849,72 @@ def main():
         resolved_alerts = len(monitor.alerts_data[monitor.alerts_data['处置状态'] == '已处理'])
         completion_rate = resolved_alerts/total_alerts*100 if total_alerts > 0 else 0
         
-        # 设置统一的指标卡片样式，大幅提高字体可见性
         with col1:
             st.markdown(f"""
-            <div class="metric-card" style="background-color: #ffffff; color: #333;">
-                <div style="font-size: 3.5rem; margin-bottom: 0.5rem;">🔴</div>
-                <div style="font-size: 1.5rem; color: #2c3e50; font-weight: 900;">高风险预警</div>
-                <div style="font-size: 2.8rem; font-weight: 900; color: #e74c3c; margin: 0.5rem 0;">{high_risk_count}</div>
-                <div style="font-size: 1.3rem; color: #34495e; font-weight: 700;">待处理: {high_risk_pending}</div>
+            <div class="metric-card">
+                <div style="font-size: 3rem; margin-bottom: 0.5rem;">🔴</div>
+                <div style="font-size: 1.2rem; opacity: 0.9;">高风险预警</div>
+                <div style="font-size: 2rem; font-weight: 800; margin: 0.5rem 0;">{high_risk_count}</div>
+                <div style="font-size: 1rem; opacity: 0.8;">待处理: {high_risk_pending}</div>
             </div>
             """, unsafe_allow_html=True)
             
         with col2:
             st.markdown(f"""
-            <div class="metric-card" style="background-color: #ffffff; color: #333;">
-                <div style="font-size: 3.5rem; margin-bottom: 0.5rem;">🟡</div>
-                <div style="font-size: 1.5rem; color: #2c3e50; font-weight: 900;">中风险预警</div>
-                <div style="font-size: 2.8rem; font-weight: 900; color: #f39c12; margin: 0.5rem 0;">{medium_risk_count}</div>
-                <div style="font-size: 1.3rem; color: #34495e; font-weight: 700;">待处理: {medium_risk_pending}</div>
+            <div class="metric-card">
+                <div style="font-size: 3rem; margin-bottom: 0.5rem;">🟡</div>
+                <div style="font-size: 1.2rem; opacity: 0.9;">中风险预警</div>
+                <div style="font-size: 2rem; font-weight: 800; margin: 0.5rem 0;">{medium_risk_count}</div>
+                <div style="font-size: 1rem; opacity: 0.8;">待处理: {medium_risk_pending}</div>
             </div>
             """, unsafe_allow_html=True)
             
         with col3:
             st.markdown(f"""
-            <div class="metric-card" style="background-color: #ffffff; color: #333;">
-                <div style="font-size: 3.5rem; margin-bottom: 0.5rem;">🟢</div>
-                <div style="font-size: 1.5rem; color: #2c3e50; font-weight: 900;">低风险预警</div>
-                <div style="font-size: 2.8rem; font-weight: 900; color: #27ae60; margin: 0.5rem 0;">{low_risk_count}</div>
-                <div style="font-size: 1.3rem; color: #34495e; font-weight: 700;">待处理: {low_risk_pending}</div>
+            <div class="metric-card">
+                <div style="font-size: 3rem; margin-bottom: 0.5rem;">🟢</div>
+                <div style="font-size: 1.2rem; opacity: 0.9;">低风险预警</div>
+                <div style="font-size: 2rem; font-weight: 800; margin: 0.5rem 0;">{low_risk_count}</div>
+                <div style="font-size: 1rem; opacity: 0.8;">待处理: {low_risk_pending}</div>
             </div>
             """, unsafe_allow_html=True)
             
         with col4:
             st.markdown(f"""
-            <div class="metric-card" style="background-color: #ffffff; color: #333;">
-                <div style="font-size: 3.5rem; margin-bottom: 0.5rem;">📈</div>
-                <div style="font-size: 1.5rem; color: #2c3e50; font-weight: 900;">处理进度</div>
-                <div style="font-size: 2.8rem; font-weight: 900; color: #3498db; margin: 0.5rem 0;">{resolved_alerts}/{total_alerts}</div>
-                <div style="font-size: 1.3rem; color: #34495e; font-weight: 700;">完成率: {completion_rate:.1f}%</div>
+            <div class="metric-card">
+                <div style="font-size: 3rem; margin-bottom: 0.5rem;">📈</div>
+                <div style="font-size: 1.2rem; opacity: 0.9;">处理进度</div>
+                <div style="font-size: 2rem; font-weight: 800; margin: 0.5rem 0;">{resolved_alerts}/{total_alerts}</div>
+                <div style="font-size: 1rem; opacity: 0.8;">完成率: {completion_rate:.1f}%</div>
             </div>
             """, unsafe_allow_html=True)
         
-        # 优化布局比例，调整为更合理的尺寸
-        col1, col2 = st.columns([2, 1.5], gap='large')
+        col1, col2 = st.columns([2, 1])
         
         with col1:
-            # 优化副标题样式
-            st.markdown('<div class="sub-header" style="font-size: 2rem !important;">📋 预警事件总览</div>', unsafe_allow_html=True)
-            # 添加筛选和操作按钮
-            col1_btn, col2_btn = st.columns([1, 1], gap='medium')
-            with col1_btn:
-                if st.button("🔄 刷新数据", use_container_width=True):
-                    st.rerun()
-            with col2_btn:
-                if st.button("📊 生成报告", use_container_width=True):
-                    st.success("风险报告生成成功！")
+            st.markdown('<div class="sub-header">📋 预警事件总览</div>', unsafe_allow_html=True)
             
-            # 增强的数据表格 - 大幅提高字体大小和对比度
+            # 显示预警表格
             display_data = monitor.alerts_data.copy()
             display_data['时间'] = display_data['时间'].dt.strftime('%Y-%m-%d %H:%M')
-            
-            # 优化样式以确保文字超大清晰
-            def color_risk_level(val):
-                if val == '高':
-                    return 'color: #e74c3c; font-weight: bold; font-size: 1.3rem; padding: 15px;'
-                elif val == '中':
-                    return 'color: #f39c12; font-weight: bold; font-size: 1.3rem; padding: 15px;'
-                else:
-                    return 'color: #27ae60; font-weight: bold; font-size: 1.3rem; padding: 15px;'
-            
-            def color_status(val):
-                if val == '已处理':
-                    return 'color: #27ae60; font-weight: bold; font-size: 1.3rem; padding: 15px;'
-                elif val == '处理中':
-                    return 'color: #f39c12; font-weight: bold; font-size: 1.3rem; padding: 15px;'
-                else:
-                    return 'color: #e74c3c; font-weight: bold; font-size: 1.3rem; padding: 15px;'
-            
-            # 应用样式
-            styled_df = display_data.style.map(color_risk_level, subset=['风险等级']).map(color_status, subset=['处置状态'])
-            
-            # 大幅增加表格整体字体大小
-            styled_df = styled_df.set_table_styles([
-                # 表头样式 - 更大更清晰
-                {'selector': 'thead th', 'props': [
-                    ('font-size', '1.4rem'),
-                    ('font-weight', 'bold'),
-                    ('background-color', '#2c3e50'),
-                    ('color', 'white'),
-                    ('padding', '18px'),
-                    ('text-align', 'center'),
-                    ('border-bottom', '3px solid #3498db')
-                ]},
-                # 表格单元格样式 - 超大字体
-                {'selector': 'tbody td', 'props': [
-                    ('font-size', '1.2rem'),
-                    ('font-weight', '600'),
-                    ('padding', '18px'),
-                    ('text-align', 'center'),
-                    ('border-bottom', '1px solid #ecf0f1')
-                ]},
-                # 鼠标悬停效果
-                {'selector': 'tbody tr:hover', 'props': [
-                    ('background-color', '#f8f9fa'),
-                    ('transform', 'scale(1.01)'),
-                    ('transition', 'all 0.3s ease')
-                ]}
-            ])
-            
-            # 显示表格，增加整体高度
-            st.dataframe(
-                styled_df,
-                use_container_width=True,
-                height=550,
-                hide_index=True,
-                column_config={
-                    "预警ID": st.column_config.TextColumn(width="large"),
-                    "预警类型": st.column_config.TextColumn(width="medium"),
-                    "风险等级": st.column_config.TextColumn(width="medium"),
-                    "时间": st.column_config.TextColumn(width="large"),
-                    "处置状态": st.column_config.TextColumn(width="medium")
-                }
-            )
+            st.dataframe(display_data, use_container_width=True, height=400)
             
         with col2:
-            # 优化副标题样式
-            st.markdown('<div class="sub-header" style="font-size: 2rem !important;">🔔 预警统计分析</div>', unsafe_allow_html=True)
+            st.markdown('<div class="sub-header">🔔 预警统计分析</div>', unsafe_allow_html=True)
             
-            # 风险等级分布统计 - 增大图表字体确保清晰可见
+            # 风险等级分布统计
             alert_stats = monitor.alerts_data['风险等级'].value_counts()
             fig = px.pie(
                 values=alert_stats.values,
                 names=alert_stats.index,
                 title="风险等级分布",
                 color=alert_stats.index,
-                color_discrete_map={'高':'#e74c3c', '中':'#f39c12', '低':'#27ae60'},
-                hole=0.3  # 添加空心效果，增强可读性
+                color_discrete_map={'高':'#e74c3c', '中':'#f39c12', '低':'#27ae60'}
             )
-            
-            # 最大化图表字体大小和清晰度
-            fig.update_layout(
-                font=dict(size=20, family="Arial, sans-serif"),
-                legend=dict(
-                    font=dict(size=18, weight='bold'),
-                    orientation="h",
-                    yanchor="bottom",
-                    y=1.02,
-                    xanchor="center",
-                    x=0.5
-                ),
-                title=dict(font=dict(size=22, weight='bold')),
-                margin=dict(l=30, r=30, t=80, b=30),
-                height=420,
-                plot_bgcolor='rgba(255, 255, 255, 1)',
-                paper_bgcolor='rgba(255, 255, 255, 1)'
-            )
-            
-            # 确保饼图标签最大程度清晰可见
-            fig.update_traces(
-                textposition='inside',
-                textinfo='percent+label',
-                textfont=dict(size=20, weight='bold'),
-                marker=dict(line=dict(color='#ffffff', width=3))
-            )
-            
+            fig.update_layout(height=300)
             st.plotly_chart(fig, use_container_width=True)
             
-            # 处置状态统计 - 增大图表字体
+            # 处置状态统计
             status_stats = monitor.alerts_data['处置状态'].value_counts()
             fig2 = px.bar(
                 x=status_stats.values,
@@ -1029,55 +924,11 @@ def main():
                 color=status_stats.index,
                 color_discrete_sequence=['#27ae60', '#f39c12', '#e74c3c']
             )
-            
-            # 优化图表字体和布局
-            fig2.update_layout(
-                showlegend=False,
-                font=dict(size=20, family="Arial, sans-serif"),
-                title=dict(font=dict(size=22, weight='bold')),
-                margin=dict(l=30, r=30, t=80, b=30),
-                height=420,
-                plot_bgcolor='rgba(255, 255, 255, 1)',
-                paper_bgcolor='rgba(255, 255, 255, 1)',
-                xaxis=dict(title=dict(text='数量', font=dict(size=18))),
-                yaxis=dict(tickfont=dict(size=18, weight='bold'))
-            )
-            
-            # 确保条形图标签清晰可见
-            fig2.update_traces(
-                textfont=dict(size=20, weight='bold'),
-                textposition='outside',
-                marker=dict(line=dict(color='#ffffff', width=2))
-            )
-            
+            fig2.update_layout(height=300, showlegend=False)
             st.plotly_chart(fig2, use_container_width=True)
-            
-            # 添加醒目的滚动提示
-            st.markdown("""
-            <div style='text-align: center; margin-top: 1.5rem; padding: 1.5rem; background-color: #f8f9fa; border-radius: 10px;'>
-                <p style='font-size: 1.4rem; color: #2c3e50; font-weight: bold; margin: 0;'>📜 可滚动查看更多预警信息</p>
-            </div>
-            """, unsafe_allow_html=True)
             
     elif page == "数据分析报告":
         st.markdown('<div class="main-header">📊 智能分析报告</div>', unsafe_allow_html=True)
-        
-        # 报告生成时间
-        st.markdown(f"""
-        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
-                    padding: 1rem; border-radius: 10px; color: white; margin-bottom: 2rem;">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <div>
-                    <h4 style="margin: 0; color: white;">风险分析报告</h4>
-                    <p style="margin: 0; opacity: 0.9;">生成时间: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</p>
-                </div>
-                <div>
-                    <button style="background: rgba(255,255,255,0.2); border: none; padding: 0.5rem 1rem; 
-                                border-radius: 5px; color: white; cursor: pointer;">📥 导出报告</button>
-                </div>
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
         
         col1, col2 = st.columns(2)
         
@@ -1104,39 +955,8 @@ def main():
                         <li>合规风险受新监管政策影响显著</li>
                     </ul>
                 </div>
-                
-                <div style="margin: 1.5rem 0;">
-                    <h5 style="color: #66bb6a; margin-bottom: 0.5rem;">✅ 积极信号</h5>
-                    <ul style="color: #555;">
-                        <li>大型银行风险抵御能力保持稳定</li>
-                        <li>保险行业风险指标持续改善</li>
-                        <li>监管科技应用效果逐步显现</li>
-                    </ul>
-                </div>
             </div>
             """, unsafe_allow_html=True)
-            
-            # 风险趋势图表
-            st.markdown("### 📊 风险指标变化趋势")
-            fig = go.Figure()
-            risk_columns = ['market_risk', 'credit_risk', 'liquidity_risk', 'operational_risk']
-            risk_names = ['市场风险', '信用风险', '流动性风险', '操作风险']
-            colors = ['#ff6b6b', '#ffa726', '#66bb6a', '#42a5f5']
-            
-            for col, name, color in zip(risk_columns, risk_names, colors):
-                fig.add_trace(go.Scatter(
-                    x=monitor.risk_data['date'],
-                    y=monitor.risk_data[col],
-                    name=name,
-                    line=dict(color=color, width=3)
-                ))
-            
-            fig.update_layout(
-                title='风险指标月度趋势',
-                height=400,
-                template='plotly_white'
-            )
-            st.plotly_chart(fig, width='stretch')
             
         with col2:
             st.markdown("### 🤖 AI模型性能报告")
@@ -1162,82 +982,9 @@ def main():
                         <div style="color: #555;">平均响应时间</div>
                     </div>
                 </div>
-                
-                <h5 style="color: #2c3e50; margin-top: 1rem;">📈 性能趋势</h5>
-                <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
-                    <p style="margin: 0.5rem 0; color: #4caf50;">↑ 实体识别准确率提升2.5%</p>
-                    <p style="margin: 0.5rem 0; color: #2196f3;">↑ 关系抽取F1值提升3.2%</p>
-                    <p style="margin: 0.5rem 0; color: #ff9800;">↑ 风险预警准确率提升4.1%</p>
-                    <p style="margin: 0.5rem 0; color: #e91e63;">↓ 响应时间优化40%</p>
-                </div>
-                
-                <h5 style="color: #2c3e50; margin-top: 1rem;">🎯 优化建议</h5>
-                <ul style="color: #555;">
-                    <li>增加非结构化数据训练样本</li>
-                    <li>优化模型超参数配置</li>
-                    <li>引入图神经网络增强关系推理</li>
-                    <li>加强模型可解释性研究</li>
-                </ul>
             </div>
             """, unsafe_allow_html=True)
-            
-            # 机构风险分布
-            st.markdown("### 🏦 机构风险分布")
-            fig = px.box(
-                monitor.institution_risk,
-                x='所属板块',
-                y='风险评分',
-                color='所属板块',
-                title='各板块风险评分分布'
-            )
-            st.plotly_chart(fig, width='stretch')
         
-        # 底部行动建议
-        st.markdown("### 💡 风险处置建议")
-        col1, col2, col3 = st.columns(3)
-        
-        with col1:
-            st.markdown("""
-            <div style="background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%); 
-                        padding: 1.5rem; border-radius: 10px; color: white; text-align: center; height: 100%;">
-                <h4>🚨 紧急处置</h4>
-                <p style="margin: 1rem 0;">立即启动高风险机构流动性监测</p>
-                <ul style="text-align: left; margin: 0; padding-left: 1.5rem;">
-                    <li>加强资金流动监控</li>
-                    <li>建立应急响应机制</li>
-                    <li>启动压力测试</li>
-                </ul>
-            </div>
-            """, unsafe_allow_html=True)
-            
-        with col2:
-            st.markdown("""
-            <div style="background: linear-gradient(135deg, #ffa726 0%, #f57c00 100%); 
-                        padding: 1.5rem; border-radius: 10px; color: white; text-align: center; height: 100%;">
-                <h4>📋 中期措施</h4>
-                <p style="margin: 1rem 0;">优化信用风险评估模型参数</p>
-                <ul style="text-align: left; margin: 0; padding-left: 1.5rem;">
-                    <li>更新评级模型</li>
-                    <li>加强贷后管理</li>
-                    <li>完善风险定价</li>
-                </ul>
-            </div>
-            """, unsafe_allow_html=True)
-            
-        with col3:
-            st.markdown("""
-            <div style="background: linear-gradient(135deg, #66bb6a 0%, #4caf50 100%); 
-                        padding: 1.5rem; border-radius: 10px; color: white; text-align: center; height: 100%;">
-                <h4>🛡️ 预防策略</h4>
-                <p style="margin: 1rem 0;">加强系统性风险压力测试</p>
-                <ul style="text-align: left; margin: 0; padding-left: 1.5rem;">
-                    <li>完善监测体系</li>
-                    <li>强化资本充足</li>
-                    <li>建立缓冲机制</li>
-                </ul>
-            </div>
-            """, unsafe_allow_html=True)
-
     elif page == "系统设置":
         st.markdown('<div class="main-header">⚙️ 系统配置与管理</div>', unsafe_allow_html=True)
         
@@ -1251,7 +998,7 @@ def main():
             st.selectbox("默认风险等级", ["高", "中", "低"])
             st.text_input("API端点地址", value="https://api.lingxiu-risk.com/v1")
             
-            if st.button("💾 保存配置", width='stretch'):
+            if st.button("💾 保存配置", use_container_width=True):
                 st.success("系统配置已保存！")
                 
         with col2:
@@ -1263,7 +1010,7 @@ def main():
             st.multiselect("数据访问权限", 
                           ["市场数据", "信用数据", "流动性数据", "操作数据", "系统数据"])
             
-            if st.button("👤 创建用户", width='stretch'):
+            if st.button("👤 创建用户", use_container_width=True):
                 st.success("用户创建成功！")
 
     # 添加页脚
