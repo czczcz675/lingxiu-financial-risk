@@ -794,9 +794,9 @@ def main():
         # 导航菜单
         st.markdown("### 🧭 导航菜单")
         page = st.selectbox(
-            "",
+            "选择页面",
             ["风险监测仪表盘", "技术架构展示", "预警管理中心", "数据分析报告", "系统设置"],
-            label_visibility="collapsed"
+            label_visibility="visible"
         )
         
         st.markdown("---")
