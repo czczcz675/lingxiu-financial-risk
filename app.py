@@ -517,16 +517,21 @@ class AdvancedFinancialRiskMonitor:
         )
         st.plotly_chart(fig, width='stretch')
         
-        # 添加风险评分表格
-        st.markdown("#### 📋 机构风险评分详情")
-        display_df = self.institution_risk[['机构名称', '所属板块', '风险评分', '风险等级', '风险变化']].copy()
-        st.dataframe(
-            display_df.style.background_gradient(
-                subset=['风险评分'], 
-                cmap='RdYlGn_r'
-            ),
-            width='stretch'
-        )
+# 添加风险评分表格
+st.markdown("#### 📋 机构风险评分详情")
+display_df = self.institution_risk[['机构名称', '所属板块', '风险评分', '风险等级', '风险变化']].copy()
+
+# 使用兼容的样式方法
+def color_risk_score(val):
+    if val >= 80:
+        return 'background-color: #4caf50; color: white; font-weight: bold;'
+    elif val >= 70:
+        return 'background-color: #ff9800; color: white; font-weight: bold;'
+    else:
+        return 'background-color: #f44336; color: white; font-weight: bold;'
+
+styled_df = display_df.style.map(color_risk_score, subset=['风险评分'])
+st.dataframe(styled_df, width='stretch')
 
     def display_advanced_ai_analysis(self):
         """显示高级AI分析结果"""
